@@ -6,4 +6,6 @@
 <include file="$(find mavros)/launch/px4.launch">
 <arg name="fcu_url" value="/dev/ttyUSB0:921600"/>
 </include>
+<node pkg="trims" type="msg_check" name="check node" output="screen"/>
+<node pkg="trims" type="msg_units" name="units node" output="screen"/>
 </launch>

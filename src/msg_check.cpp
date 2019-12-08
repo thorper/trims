@@ -54,7 +54,11 @@ void checker::mavPropGrab(const trims::PROP msg)
 {
   // ROS_INFO("Hey Im in the Callback!");  
   
+  ros::Time check_start_time = ros::Time::now();
+
   trims::PROP_check checkVals;
+
+  checkVals.header.stamp = check_start_time;
 
   unsigned int v_ADC_min = 3500;
   unsigned int v_ADC_max = 4000;
@@ -68,57 +72,38 @@ void checker::mavPropGrab(const trims::PROP msg)
   unsigned int s_ADC_min = 10000;
   unsigned int s_ADC_max = 24000;
 
-  unsigned int r_min = 0;
+  unsigned int r_min = 10;
   unsigned int r_max = 8000;
 
 
-  if(msg.V1 > v_ADC_min && msg.V1 < v_ADC_max){checkVals.V1 = "OK";}
-  else{checkVals.V1 = "BAD";} 
-  if(msg.V2 > v_ADC_min && msg.V2 < v_ADC_max){checkVals.V2 = "OK";}
-  else{checkVals.V2 = "BAD";} 
-  if(msg.V3 > v_ADC_min && msg.V3 < v_ADC_max){checkVals.V3 = "OK";}
-  else{checkVals.V3 = "BAD";} 
-  if(msg.V4 > v_ADC_min && msg.V4 < v_ADC_max){checkVals.V4 = "OK";}
-  else{checkVals.V4 = "BAD";} 
+  if(msg.V1 > v_ADC_max){checkVals.V1 = "ERROR High";}else if(msg.V1 < v_ADC_min){checkVals.V1 = "ERROR Low";}else{checkVals.V1 = "OK";}
+  if(msg.V2 > v_ADC_max){checkVals.V2 = "ERROR High";}else if(msg.V2 < v_ADC_min){checkVals.V2 = "ERROR Low";}else{checkVals.V2 = "OK";}
+  if(msg.V3 > v_ADC_max){checkVals.V3 = "ERROR High";}else if(msg.V3 < v_ADC_min){checkVals.V3 = "ERROR Low";}else{checkVals.V3 = "OK";}
+  if(msg.V4 > v_ADC_max){checkVals.V4 = "ERROR High";}else if(msg.V4 < v_ADC_min){checkVals.V4 = "ERROR Low";}else{checkVals.V4 = "OK";}
 
-  if(msg.C1 > c_ADC_min && msg.C1 < c_ADC_max){checkVals.C1 = "OK";}
-  else{checkVals.C1 = "BAD";} 
-  if(msg.C2 > c_ADC_min && msg.C2 < c_ADC_max){checkVals.C2 = "OK";}
-  else{checkVals.C2 = "BAD";} 
-  if(msg.C3 > c_ADC_min && msg.C3 < c_ADC_max){checkVals.C3 = "OK";}
-  else{checkVals.C3 = "BAD";} 
-  if(msg.C4 > c_ADC_min && msg.C4 < c_ADC_max){checkVals.C4 = "OK";}
-  else{checkVals.C4 = "BAD";} 
+  if(msg.C1 > c_ADC_max){checkVals.C1 = "ERROR High";}else if(msg.C1 < c_ADC_min){checkVals.C1 = "ERROR Low";}else{checkVals.C1 = "OK";}
+  if(msg.C2 > c_ADC_max){checkVals.C2 = "ERROR High";}else if(msg.C2 < c_ADC_min){checkVals.C2 = "ERROR Low";}else{checkVals.C2 = "OK";}
+  if(msg.C3 > c_ADC_max){checkVals.C3 = "ERROR High";}else if(msg.C3 < c_ADC_min){checkVals.C3 = "ERROR Low";}else{checkVals.C3 = "OK";}
+  if(msg.C4 > c_ADC_max){checkVals.C4 = "ERROR High";}else if(msg.C4 < c_ADC_min){checkVals.C4 = "ERROR Low";}else{checkVals.C4 = "OK";}
 
-  if(msg.THRUST1 > t_ADC_min && msg.THRUST1 < t_ADC_max){checkVals.THRUST1 = "OK";}
-  else{checkVals.THRUST1 = "BAD";} 
-  if(msg.THRUST2 > t_ADC_min && msg.THRUST2 < t_ADC_max){checkVals.THRUST2 = "OK";}
-  else{checkVals.THRUST2 = "BAD";} 
-  if(msg.THRUST3 > t_ADC_min && msg.THRUST3 < t_ADC_max){checkVals.THRUST3 = "OK";}
-  else{checkVals.THRUST3 = "BAD";} 
-  if(msg.THRUST4 > t_ADC_min && msg.THRUST1 < t_ADC_max){checkVals.THRUST4 = "OK";}
-  else{checkVals.THRUST4 = "BAD";} 
+  if(msg.THRUST1 > t_ADC_max){checkVals.THRUST1 = "ERROR High";}else if(msg.THRUST1 < t_ADC_min){checkVals.THRUST1 = "ERROR Low";}else{checkVals.THRUST1 = "OK";}
+  if(msg.THRUST2 > t_ADC_max){checkVals.THRUST2 = "ERROR High";}else if(msg.THRUST2 < t_ADC_min){checkVals.THRUST2 = "ERROR Low";}else{checkVals.THRUST2 = "OK";}
+  if(msg.THRUST3 > t_ADC_max){checkVals.THRUST3 = "ERROR High";}else if(msg.THRUST3 < t_ADC_min){checkVals.THRUST3 = "ERROR Low";}else{checkVals.THRUST3 = "OK";}
+  if(msg.THRUST4 > t_ADC_max){checkVals.THRUST4 = "ERROR High";}else if(msg.THRUST4 < t_ADC_min){checkVals.THRUST4 = "ERROR Low";}else{checkVals.THRUST4 = "OK";}
 
-  if(msg.STRAIN1 > s_ADC_min && msg.STRAIN1 < s_ADC_max){checkVals.STRAIN1 = "OK";}
-  else{checkVals.STRAIN1 = "BAD";} 
-  if(msg.STRAIN2 > s_ADC_min && msg.STRAIN2 < s_ADC_max){checkVals.STRAIN2 = "OK";}
-  else{checkVals.STRAIN2 = "BAD";} 
-  if(msg.STRAIN3 > s_ADC_min && msg.STRAIN3 < s_ADC_max){checkVals.STRAIN3 = "OK";}
-  else{checkVals.STRAIN3 = "BAD";} 
-  if(msg.STRAIN4 > s_ADC_min && msg.STRAIN1 < s_ADC_max){checkVals.STRAIN4 = "OK";}
-  else{checkVals.STRAIN4 = "BAD";} 
+  if(msg.STRAIN1 > s_ADC_max){checkVals.STRAIN1 = "ERROR High";}else if(msg.STRAIN1 < s_ADC_min){checkVals.STRAIN1 = "ERROR Low";}else{checkVals.STRAIN1 = "OK";}
+  if(msg.STRAIN2 > s_ADC_max){checkVals.STRAIN2 = "ERROR High";}else if(msg.STRAIN2 < s_ADC_min){checkVals.STRAIN2 = "ERROR Low";}else{checkVals.STRAIN2 = "OK";}
+  if(msg.STRAIN3 > s_ADC_max){checkVals.STRAIN3 = "ERROR High";}else if(msg.STRAIN3 < s_ADC_min){checkVals.STRAIN3 = "ERROR Low";}else{checkVals.STRAIN3 = "OK";}
+  if(msg.STRAIN4 > s_ADC_max){checkVals.STRAIN4 = "ERROR High";}else if(msg.STRAIN4 < s_ADC_min){checkVals.STRAIN4 = "ERROR Low";}else{checkVals.STRAIN4 = "OK";}
 
-  if(msg.RPM1 > r_min && msg.RPM1 < r_max){checkVals.RPM1 = "OK";}
-  else{checkVals.RPM1 = "BAD";} 
-  if(msg.RPM2 > r_min && msg.RPM2 < r_max){checkVals.RPM2 = "OK";}
-  else{checkVals.RPM2 = "BAD";} 
-  if(msg.RPM3 > r_min && msg.RPM3 < r_max){checkVals.RPM3 = "OK";}
-  else{checkVals.RPM3 = "BAD";} 
-  if(msg.RPM4 > r_min && msg.RPM4 < r_max){checkVals.RPM4 = "OK";}
-  else{checkVals.RPM4 = "BAD";} 
+  if(msg.RPM1 > r_max){checkVals.RPM1 = "ERROR High";}else if(msg.RPM1 < r_min){checkVals.RPM1 = "ERROR Low";}else{checkVals.RPM1 = "OK";}
+  if(msg.RPM2 > r_max){checkVals.RPM2 = "ERROR High";}else if(msg.RPM2 < r_min){checkVals.RPM2 = "ERROR Low";}else{checkVals.RPM2 = "OK";}
+  if(msg.RPM3 > r_max){checkVals.RPM3 = "ERROR High";}else if(msg.RPM3 < r_min){checkVals.RPM3 = "ERROR Low";}else{checkVals.RPM3 = "OK";}
+  if(msg.RPM4 > r_max){checkVals.RPM4 = "ERROR High";}else if(msg.RPM4 < r_min){checkVals.RPM4 = "ERROR Low";}else{checkVals.RPM4 = "OK";}
 
 
   pb_mavPropCheck.publish(checkVals);
+  ros::Duration(1.0).sleep();  // Sleep for one second
 
   // ROS_INFO("Call Back done!");  
 
