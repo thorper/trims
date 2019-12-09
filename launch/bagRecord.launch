@@ -1,0 +1,3 @@
+<launch>
+	<node pkg="rosbag" type="record" name="record" output="screen" args="-ao /home/thorper/bag_files/QRex"/>
+</launch>
