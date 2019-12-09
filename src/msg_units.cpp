@@ -124,7 +124,7 @@ void engUnits::mavPropGrab(const trims::PROP msg)
   pb_mavPropEngUnits.publish(engUnitVals);
 
   // ROS_INFO("Call Back done!");  
-  ros::Duration(1.0).sleep();  // Sleep for one second
+  ros::Duration(0.25).sleep();  // Sleep for one second
 
 }
 

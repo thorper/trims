@@ -103,7 +103,7 @@ void checker::mavPropGrab(const trims::PROP msg)
 
 
   pb_mavPropCheck.publish(checkVals);
-  ros::Duration(1.0).sleep();  // Sleep for one second
+  ros::Duration(0.25).sleep();  // Sleep for one second
 
   // ROS_INFO("Call Back done!");  
 
