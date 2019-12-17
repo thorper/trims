@@ -54,6 +54,7 @@ find_package(catkin REQUIRED COMPONENTS
 	PROP.msg
 	PROP_check.msg
   PROP_eng_units.msg
+  PROP_stamped.msg
 #   Message1.msg
 #   Message2.msg
  )
@@ -140,6 +141,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(checker src/msg_check.cpp)
 add_executable(engUnits src/msg_units.cpp)
+add_executable(propStamper src/msg_stamped.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -154,6 +156,7 @@ add_executable(engUnits src/msg_units.cpp)
 ## Specify libraries to link a library or executable target against
  target_link_libraries(checker ${catkin_LIBRARIES})
  target_link_libraries(engUnits ${catkin_LIBRARIES})
+ target_link_libraries(propStamper ${catkin_LIBRARIES})
 
 #############
 ## Install ##
