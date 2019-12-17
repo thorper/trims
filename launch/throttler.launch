@@ -1,0 +1,4 @@
+<launch>
+<node pkg="trims" type="propStamper" name="propStamper" output="screen"/>
+<node name="foo_throttler" type="throttle" pkg="topic_tools" args="messages arm_4/stamped 1 /arm_4/stamped/throttled"/>
+</launch>

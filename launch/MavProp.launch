@@ -6,7 +6,8 @@
 <include file="$(find mavros)/launch/px4.launch">
 <arg name="fcu_url" value="/dev/ttyUSB0:921600"/>
 </include>
-<node pkg="trims" type="propStamped" name="propStamper" output="screen"/>
+<node pkg="trims" type="propStamper" name="propStamper" output="screen"/>
+<node name="foo_throttler" type="throttle" pkg="topic_tools" args="messages arm_4/stamped 1 /arm_4/stamped_throttled"/>
 <node pkg="trims" type="checker" name="checker" output="screen"/>
 <node pkg="trims" type="engUnits" name="engUnits" output="screen"/>
 </launch>
