@@ -8,4 +8,5 @@
 </include>
 <node pkg="trims" type="checker" name="checker" output="screen"/>
 <node pkg="trims" type="engUnits" name="engUnits" output="screen"/>
+<node pkg="rosbag" type="record" name="record" output="screen" args="-ao /home/quad/bag_files/auto_bags/QRex"/>
 </launch>
