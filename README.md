@@ -1,6 +1,15 @@
 # trims ROS node
 
-The "trims" ROS node is mainly a package that contains the custom message types to read streaming data from the Parallax Propeller board. 
+The "trims" ROS node is mainly a package that contains the custom message types to read streaming data from the Parallax Propeller board. Most of the time only a single launch file command is needed to begin collecting data, see below:
+```
+roslaunch trims MavProp.launch
+```
+
+## Launch Files
+Thare are several launch files in the launch folder that interface with nodes built to read the old arduino nanos and other launch files are for diagnostic purposes.
+
+### MavProp.launch
+This is the only launch file that is needed to gather flight data while flying the QREX. The data is saved as a ROS bag file and is stored locally on the Raspberry Pi.
 
 ## Message Types
 
@@ -37,3 +46,12 @@ This is the current ROS message type used as of 2/3/2020. It reads the messages 
 - uint16 RPM2
 - uint16 RPM3
 - uint16 RPM4
+
+### PROP_check.msg
+This message displays ERROR High, ERROR Low or OK depending on the analog reading. The analog reading thresholds are located in the source code file *msg_check.cpp*
+
+### PROP_eng_units.msg
+This message converts the analog readings in the PROP.msg to engineering units for purely diagnostic purposes. The gain values are nominal and should not be used in any data analysis. These values were meant to give field testers a general idea of the motor speeds, thrusts, voltages and currents to ensure all sensors are behaving properly before and after flights. The nominal analog to engineering unit gains are in *msg_units.cpp*
+
+### PROP_stamped.msg
+This is the same message as PROP.msg except that it has an ROS timestamp that is pulled from the Raspberry Pi system clock.
