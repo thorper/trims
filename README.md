@@ -7,12 +7,12 @@ The "trims" ROS node is mainly a package that contains the custom message types 
 ### AAS.msg
 ROS message type for reading streaming data from the Arduino Nano data acquisition shields. This message type was used to generate the data in the 2019 Conference Paper Titled: Test Vehicle for Determination of Multi-Rotor UAV Trim Conditions
 
-Header header *ROS time stamp generated from Raspberry Pi's clock*
-float32 voltage *Motor Voltage in analog counts*
-float32 current *Motor Current in analog counts*
-float32 thrust  *Motor Honeywell Load cell reading in analog counts*
-float32 ethrust *Arm strain gauge reading in analog counts*
-uint16 rpm *Motor RPM in rotations per minute*
+-Header header *ROS time stamp generated from Raspberry Pi's clock*
+-float32 voltage *Motor Voltage in analog counts*
+-float32 current *Motor Current in analog counts*
+-float32 thrust  *Motor Honeywell Load cell reading in analog counts*
+-float32 ethrust *Arm strain gauge reading in analog counts*
+-uint16 rpm *Motor RPM in rotations per minute*
 
 ### PROP.msg
 This is the current ROS message type used as of 2/3/2020. It reads the messages published by the Parallax Propeller board. Dr. McCrink authored low-level codes to make the Parallax board appear to be a simple arduino board.
