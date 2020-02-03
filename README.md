@@ -17,23 +17,23 @@ ROS message type for reading streaming data from the Arduino Nano data acquisiti
 ### PROP.msg
 This is the current ROS message type used as of 2/3/2020. It reads the messages published by the Parallax Propeller board. Dr. McCrink authored low-level codes to make the Parallax board appear to be a simple arduino board.
 
-uint16 V1 *Motor Voltage in analog counts*
-uint16 V2
-uint16 V3
-uint16 V4
-uint16 C1 *Motor Current in analog counts*
-uint16 C2
-uint16 C3
-uint16 C4
-uint16 THRUST1 *Motor Futek Load cell reading in analog counts*
-uint16 STRAIN1 *Arm strain gauge reading in analog counts*
-uint16 THRUST2
-uint16 STRAIN2
-uint16 THRUST3
-uint16 STRAIN3
-uint16 THRUST4
-uint16 STRAIN4
-uint16 RPM1 *Motor RPM in rotations per minute*
-uint16 RPM2
-uint16 RPM3
-uint16 RPM4
+- uint16 V1 *Motor Voltage in analog counts*
+- uint16 V2
+- uint16 V3
+- uint16 V4
+- uint16 C1 *Motor Current in analog counts*
+- uint16 C2
+- uint16 C3
+- uint16 C4
+- uint16 THRUST1 *Motor Futek Load cell reading in analog counts*
+- uint16 STRAIN1 *Arm strain gauge reading in analog counts*
+- uint16 THRUST2
+- uint16 STRAIN2
+- uint16 THRUST3
+- uint16 STRAIN3
+- uint16 THRUST4
+- uint16 STRAIN4
+- uint16 RPM1 *Motor RPM in rotations per minute*
+- uint16 RPM2
+- uint16 RPM3
+- uint16 RPM4
