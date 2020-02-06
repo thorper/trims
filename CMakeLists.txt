@@ -55,6 +55,7 @@ find_package(catkin REQUIRED COMPONENTS
 	PROP_check.msg
   PROP_eng_units.msg
   PROP_stamped.msg
+  PROP_stats.msg
 #   Message1.msg
 #   Message2.msg
  )
@@ -142,6 +143,8 @@ include_directories(
 add_executable(checker src/msg_check.cpp)
 add_executable(engUnits src/msg_units.cpp)
 add_executable(propStamper src/msg_stamped.cpp)
+add_executable(calStats src/msg_stats.cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -157,6 +160,8 @@ add_executable(propStamper src/msg_stamped.cpp)
  target_link_libraries(checker ${catkin_LIBRARIES})
  target_link_libraries(engUnits ${catkin_LIBRARIES})
  target_link_libraries(propStamper ${catkin_LIBRARIES})
+ target_link_libraries(calStats ${catkin_LIBRARIES})
+
 
 #############
 ## Install ##
