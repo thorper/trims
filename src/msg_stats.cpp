@@ -24,27 +24,30 @@ class calStats
     //Strain gauge signal (STRAINX)
     uint s_old[4];
     uint s [4];
-    int s_sigma [4];
-    uint s_EMA_old [4];
+    int s_sigma [4];    
     uint s_EMA [4];
+    uint s_EMA_old [4];
+    uint s_EMA_h [4];
     double s_alpha [4];
     double s_EMV [4];
     double s_EMV_old [4];
     double s_EMSD [4];
+    double s_EMSD_th [4];
 
     //Load Cell signal (THRUSTX)
     uint t_old[4];
     uint t [4];
-    int t_sigma [4];
-    uint t_EMA_old [4];
+    int t_sigma [4];    
     uint t_EMA [4];
+    uint t_EMA_old [4];
+    uint t_EMA_h [4];
     double t_alpha [4];
     double t_EMV [4];
     double t_EMV_old [4];
     double t_EMSD [4];
+    double t_EMSD_th [4];  
 
     void mavPropGrab(const trims::PROP::ConstPtr& msg);
-
 
   calStats();
 
@@ -57,6 +60,7 @@ calStats::calStats()
   s[0] = 0; s[1] = 0; s[2] = 0; s[3] = 0;
   s_sigma[0] = 0; s_sigma[1] = 0; s_sigma[2] = 0; s_sigma[3] = 0;
   s_EMA[0] = s[0]; s_EMA[1] = s[1]; s_EMA[2] = s[2]; s_EMA[3] = s[3];
+  s_EMA_h[0] = 0; s_EMA_h[1] = 0; s_EMA_h[2] = 0; s_EMA_h[3] = 0;
   s_EMA_old[0] = 0; s_EMA_old[1] = 0; s_EMA_old[2] = 0; s_EMA_old[3] = 0;
 
   s_alpha[0] = 0.5; s_alpha[1] = 0.5; s_alpha[2] = 0.5; s_alpha[3] = 0.5;
@@ -64,12 +68,17 @@ calStats::calStats()
   s_EMV[0] = 0; s_EMV[1] = 0; s_EMV[2] = 0; s_EMV[3] = 0;
   s_EMV_old[0] = 0; s_EMV_old[1] = 0; s_EMV_old[2] = 0; s_EMV_old[3] = 0;
   s_EMSD[0] = 0; s_EMSD[1] = 0; s_EMSD[2] = 0; s_EMSD[3] = 0;
+  s_EMSD_th[0] = 10;
+  s_EMSD_th[1] = 10; 
+  s_EMSD_th[2] = 10; 
+  s_EMSD_th[3] = 10;
 
   //Load Cell signal (THRUSTX)
   t_old[0] = 0; t_old[1] = 0; t_old[2] = 0; t_old[3] = 0;
   t[0] = 0; t[1] = 0; t[2] = 0; t[3] = 0;
   t_sigma[0] = 0; t_sigma[1] = 0; t_sigma[2] = 0; t_sigma[3] = 0;
   t_EMA[0] = s[0]; t_EMA[1] = s[1]; t_EMA[2] = s[2]; t_EMA[3] = s[3];
+  t_EMA_h[0] = 0; t_EMA_h[1] = 0; t_EMA_h[2] = 0; t_EMA_h[3] = 0;
   t_EMA_old[0] = 0; t_EMA_old[1] = 0; t_EMA_old[2] = 0; t_EMA_old[3] = 0;
 
   t_alpha[0] = 0.5; t_alpha[1] = 0.5; t_alpha[2] = 0.5; t_alpha[3] = 0.5;
@@ -77,7 +86,10 @@ calStats::calStats()
   t_EMV[0] = 0; t_EMV[1] = 0; t_EMV[2] = 0; t_EMV[3] = 0;
   t_EMV_old[0] = 0; t_EMV_old[1] = 0; t_EMV_old[2] = 0; t_EMV_old[3] = 0;
   t_EMSD[0] = 0; t_EMSD[1] = 0; t_EMSD[2] = 0; t_EMSD[3] = 0;
-
+  t_EMSD_th[0] = 5; 
+  t_EMSD_th[1] = 5; 
+  t_EMSD_th[2] = 5; 
+  t_EMSD_th[3] = 5;
 
 }
 
@@ -139,11 +151,20 @@ int main(int argc, char** argv)
     //ROS_INFO("s_sigma is: %.2i",cso.s_sigma[i]);
     //ROS_INFO("s_alpha is: %2.2f",cso.s_alpha[i]);
 
-    ROS_INFO("~current s_EMA[%.1i] is: %.2i",i,cso.s_EMA[i]);
+    //ROS_INFO("~current s_EMA[%.1i] is: %.2i",i,cso.s_EMA[i]);
     //ROS_INFO("old s_EMA is: %.2i",cso.s_EMA_old[i]);
     //ROS_INFO("current s_EMV is: %.2f",cso.s_EMV[i]);
     //ROS_INFO("old s_EMV is: %.2f",cso.s_EMV_old[i]);
-    ROS_INFO("s_EMSD[%.1i] is: %.2f",i,cso.s_EMSD[i]);
+    //ROS_INFO("s_EMSD[%.1i] is: %.2f",i,cso.s_EMSD[i]);
+    if(cso.s_EMSD[i] < cso.s_EMSD_th[i])
+    {
+      ROS_INFO("~current  s_EMA[%.1i] is: %.2i",i,cso.s_EMA[i]);
+      cso.s_EMA_h[i] = cso.s_EMA[i];
+    } 
+    else
+    {
+      ROS_INFO("~holdover s_EMA[%.1i] is: %.2i",i,cso.s_EMA_h[i]);
+    }   
 
     cso.s_EMA_old[i] = cso.s_EMA[i];
     cso.s_EMV_old[i] = cso.s_EMV[i];
@@ -159,11 +180,20 @@ int main(int argc, char** argv)
     //ROS_INFO("t_sigma is: %.2i",cso.t_sigma[i]);
     //ROS_INFO("t_alpha is: %2.2f",cso.t_alpha[i]);
 
-    ROS_INFO("~current t_EMA[%.1i] is: %.2i",i,cso.t_EMA[i]);
+    //ROS_INFO("~current t_EMA[%.1i] is: %.2i",i,cso.t_EMA[i]);
     //ROS_INFO("old t_EMA is: %.2i",cso.t_EMA_old[i]);
     //ROS_INFO("current t_EMV is: %.2f",cso.t_EMV[i]);
     //ROS_INFO("old t_EMV is: %.2f",cso.t_EMV_old[i]);
-    ROS_INFO("t_EMSD[%.1i] is: %.2f",i,cso.t_EMSD[i]);
+    //ROS_INFO("t_EMSD[%.1i] is: %.2f",i,cso.t_EMSD[i]);
+    if(cso.t_EMSD[i] < cso.t_EMSD_th[i])
+    {
+      ROS_INFO("~current  t_EMA[%.1i] is: %.2i",i,cso.t_EMA[i]);
+      cso.t_EMA_h[i] = cso.t_EMA[i];
+    } 
+    else
+    {
+      ROS_INFO("~holdover t_EMA[%.1i] is: %.2i",i,cso.t_EMA_h[i]);
+    }  
 
     cso.t_EMA_old[i] = cso.t_EMA[i];
     cso.t_EMV_old[i] = cso.t_EMV[i];
