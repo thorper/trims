@@ -4,6 +4,10 @@ The "trims" ROS node is mainly a package that contains the custom message types 
 ```
 roslaunch trims MavProp.launch
 ```
+Some calibration automation is available through the calStats node. This node monitors the Futek load cell and Arm Strain gauge analog counts. When these counts steady out a value is published that can be used for deadload calibration purposes. Run the node below using:
+```
+rosrun trims calStats
+```
 
 ## Launch Files
 Thare are several launch files in the launch folder that interface with nodes built to read the old arduino nanos and other launch files are for diagnostic purposes.
