@@ -86,10 +86,10 @@ calStats::calStats()
   t_EMV[0] = 0; t_EMV[1] = 0; t_EMV[2] = 0; t_EMV[3] = 0;
   t_EMV_old[0] = 0; t_EMV_old[1] = 0; t_EMV_old[2] = 0; t_EMV_old[3] = 0;
   t_EMSD[0] = 0; t_EMSD[1] = 0; t_EMSD[2] = 0; t_EMSD[3] = 0;
-  t_EMSD_th[0] = 5; 
-  t_EMSD_th[1] = 5; 
-  t_EMSD_th[2] = 5; 
-  t_EMSD_th[3] = 5;
+  t_EMSD_th[0] = 10; 
+  t_EMSD_th[1] = 10; 
+  t_EMSD_th[2] = 10; 
+  t_EMSD_th[3] = 10;
 
 }
 
@@ -103,18 +103,20 @@ void calStats::mavPropGrab(const trims::PROP::ConstPtr& msg)
   s[1] = msg->STRAIN2;
   s[2] = msg->STRAIN3;
   s[3] = msg->STRAIN4;
-  ROS_INFO("STRAIN1 %.2i",s[0]);  
-  ROS_INFO("STRAIN2 %.2i",s[1]);  
-  ROS_INFO("STRAIN3 %.2i",s[2]);  
-  ROS_INFO("STRAIN4 %.2i",s[3]);  
+
   //Load Cell signal (THRUSTX)
   t[0] = msg->THRUST1;
   t[1] = msg->THRUST2;
   t[2] = msg->THRUST3;
   t[3] = msg->THRUST4;
+
+  ROS_INFO("STRAIN1 %.2i",s[0]);  
   ROS_INFO("THRUST1 %.2i",t[0]);  
+  ROS_INFO("STRAIN2 %.2i",s[1]);  
   ROS_INFO("THRUST2 %.2i",t[1]);  
+  ROS_INFO("STRAIN3 %.2i",s[2]);  
   ROS_INFO("THRUST3 %.2i",t[2]);  
+  ROS_INFO("STRAIN4 %.2i",s[3]);  
   ROS_INFO("THRUST4 %.2i",t[3]); 
 
   ROS_INFO("done------------------");  
