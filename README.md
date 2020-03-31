@@ -59,3 +59,7 @@ This message converts the analog readings in the PROP.msg to engineering units f
 
 ### PROP_stamped.msg
 This is the same message as PROP.msg except that it has an ROS timestamp that is pulled from the Raspberry Pi system clock.
+
+The Vertical Flight Society 2019 conference paper that this ROS-node was used in can be found [here]
+
+[here]: https://vtol.org/store/product/flight-test-vehicle-for-determination-of-multirotor-uav-trim-conditions-14600.cfm
