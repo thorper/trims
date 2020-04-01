@@ -1,5 +1,9 @@
 # trims ROS node
 
+For a step-by-step process to bag a set of QREX data read the following document:
+```
+Taking_QREX_Data.docx
+```
 The "trims" ROS node is mainly a package that contains the custom message types to read streaming data from the Parallax Propeller board. Most of the time only a single launch file command is needed to begin collecting data, see below:
 ```
 roslaunch trims MavProp.launch
